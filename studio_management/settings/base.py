@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 import os
 from dotenv import load_dotenv
+from drf_yasg import openapi
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     # third part
     "rest_framework",
     "rest_framework_simplejwt",
+    "drf_yasg",
 
     # local
     "studio_management.apps.profiles",
@@ -168,3 +170,14 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=ACCESS_TOKEN_LIFETIME),
     'REFRESH_TOKEN_LIFETIME': timedelta(minutes=REFRESH_TOKEN_LIFETIME * 2),
 }
+
+
+def api_info():
+    return openapi.Info(
+        title='Studio Management',
+        default_version='v1',
+        description='Booking Studios',
+        terms_of_service='https://example.com/terms/',
+        contact=openapi.Contact(email='contact@example.com'),
+        license=openapi.License(name='TDS License'),
+    )
