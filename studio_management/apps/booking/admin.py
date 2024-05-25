@@ -10,7 +10,6 @@ class StudioModelAdmin(admin.ModelAdmin):
 
     list_display = (
         "id",
-        "owner",
         "name",
         "status",
         "location",
@@ -18,6 +17,7 @@ class StudioModelAdmin(admin.ModelAdmin):
         "closing_day",
         "opening_time",
         "closing_time",
+        "owner",
         "created",
         "modified",
     )
