@@ -24,4 +24,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('login/', TokenObtainPairView.as_view(), name='login'),
     path("profiles/", include("studio_management.apps.profiles.urls")),
+    path("", include("studio_management.apps.booking.urls")),
 ]

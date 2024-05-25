@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
     # local
     "studio_management.apps.profiles",
+    "studio_management.apps.booking",
 ]
 
 MIDDLEWARE = [
