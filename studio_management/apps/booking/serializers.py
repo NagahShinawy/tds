@@ -3,8 +3,8 @@ from .models import Studio
 
 
 class StudioSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.id')
+    owner = serializers.ReadOnlyField(source="owner.id")
 
     class Meta:
         model = Studio
-        fields = '__all__'
+        fields = "__all__"

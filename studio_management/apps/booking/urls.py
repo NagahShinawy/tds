@@ -4,8 +4,8 @@ from .views import StudioViewSet
 
 
 router = DefaultRouter()
-router.register(r'studios', StudioViewSet, basename='studio')
+router.register(r"studios", StudioViewSet, basename="studio")
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]

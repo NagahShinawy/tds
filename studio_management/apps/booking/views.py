@@ -15,9 +15,9 @@ class StudioViewSet(viewsets.ModelViewSet):
         """
         Instantiates and returns the list of permissions that this view requires.
         """
-        if self.action == 'list':
+        if self.action == "list":
             permission_classes = [permissions.IsAuthenticated]
-        elif self.action in ['retrieve', 'update', 'destroy']:
+        elif self.action in ["retrieve", "update", "destroy"]:
             permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
         else:
             permission_classes = [IsStudioOwner]
@@ -31,4 +31,3 @@ class StudioViewSet(viewsets.ModelViewSet):
         if user_profile.user_type == ProfileType.STUDIO_OWNER:
             return Studio.objects.filter(owner=user_profile)
         return Studio.objects.all()
-

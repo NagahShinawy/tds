@@ -21,9 +21,16 @@ def generate_studios(num_studios):
 
         owner = random.choice(Profile.objects.all())
 
-        studio = Studio.objects.create(name=name, status=status, location=location, opening_day=opening_day,
-                                       closing_day=closing_day, opening_time=opening_time, closing_time=closing_time,
-                                       owner=owner)
+        studio = Studio.objects.create(
+            name=name,
+            status=status,
+            location=location,
+            opening_day=opening_day,
+            closing_day=closing_day,
+            opening_time=opening_time,
+            closing_time=closing_time,
+            owner=owner,
+        )
         studios.append(studio)
 
     return studios

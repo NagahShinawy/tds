@@ -2,7 +2,11 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Profile
 from .choices import ProfileType
-from .validations import PasswordNotMatchError, UserNameAlreadyExistError, EmailAlreadyExistError
+from .validations import (
+    PasswordNotMatchError,
+    UserNameAlreadyExistError,
+    EmailAlreadyExistError,
+)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -18,7 +22,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         """
         Validate the email field during update.
         """
-        user_id = self.instance.user.id if self.instance and self.instance.user else None
+        user_id = (
+            self.instance.user.id if self.instance and self.instance.user else None
+        )
         user = User.objects.exclude(pk=user_id).filter(email=value).exists()
         if user:
             EmailAlreadyExistError().raise_error()
@@ -29,7 +35,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         """
         Validate the username field during update.
         """
-        user_id = self.instance.user.id if self.instance and self.instance.user else None
+        user_id = (
+            self.instance.user.id if self.instance and self.instance.user else None
+        )
         user = User.objects.exclude(pk=user_id).filter(username=value).exists()
 
         if user:
@@ -41,10 +49,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         """
         Update and return the instance given the validated data.
         """
-        username = validated_data.get('username')
-        email = validated_data.get('email', instance.user.email)
-        first_name = validated_data.get('first_name', instance.user.first_name)
-        last_name = validated_data.get('last_name', instance.user.last_name)
+        username = validated_data.get("username")
+        email = validated_data.get("email", instance.user.email)
+        first_name = validated_data.get("first_name", instance.user.first_name)
+        last_name = validated_data.get("last_name", instance.user.last_name)
         if username:
             instance.user.username = username
 
@@ -59,7 +67,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
         instance.user.save()
 
-        instance.user_type = validated_data.get('user_type', instance.user_type)
+        instance.user_type = validated_data.get("user_type", instance.user_type)
         instance.save()
         return instance
 

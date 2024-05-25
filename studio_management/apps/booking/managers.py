@@ -28,4 +28,3 @@ class StudioManager(models.Manager):
             opening_time__lte=current_time,
             closing_time__gte=current_time,
         )
-

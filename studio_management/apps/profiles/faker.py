@@ -20,8 +20,13 @@ def generate_profiles(num_profiles):
         password = fake.password(length=PASS_LEN)
         hashed_password = make_password(password)
 
-        user = User.objects.create_user(username=username, email=email, password=hashed_password, first_name=first_name,
-                                        last_name=last_name)
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=hashed_password,
+            first_name=first_name,
+            last_name=last_name,
+        )
 
         user_type = random.choice([choice[0] for choice in ProfileType.choices])
         profile = Profile.objects.create(user=user, user_type=user_type)
