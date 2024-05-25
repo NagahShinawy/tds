@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 from .models import Studio
 from .serializers import StudioSerializer
-from .permissions import IsOwnerOrReadOnly, IsStudioOwner
+from .permissions import IsOwnerOrReadOnly, IsStudioOwner, IsAdminOrStudioOwner
 from studio_management.apps.profiles.choices import ProfileType
 
 
