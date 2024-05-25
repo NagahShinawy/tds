@@ -23,6 +23,9 @@ class Profile(CreatedModelMixin, ModifiedModelMixin, models.Model):
     user_type = models.CharField(max_length=20, choices=ProfileType.choices)
     objects = ProfileManager()
 
+    def __str__(self):
+        return f"{self.__class__.__name__}(user={self.user.pk}, username={self.user.username}, user_type={self.user_type})"
+
     @property
     def username(self):
         return self.user.username
