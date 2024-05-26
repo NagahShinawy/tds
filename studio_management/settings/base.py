@@ -172,6 +172,10 @@ SIMPLE_JWT = {
 }
 
 
+CANCELLATION_TIME_THRESHOLD = 15  # cancellation time threshold in minutes
+SECONDS_IN_MINUTES = 60
+
+
 def api_info():
     return openapi.Info(
         title='Studio Management',

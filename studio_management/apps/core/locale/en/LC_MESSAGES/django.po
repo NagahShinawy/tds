@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-25 08:22+0000\n"
+"POT-Creation-Date: 2024-05-26 07:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1503,6 +1503,22 @@ msgstr ""
 
 #: env/lib/python3.8/site-packages/django/views/templates/default_urlconf.html:248
 msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: env/lib/python3.8/site-packages/isort/main.py:158
+msgid "show this help message and exit"
+msgstr ""
+
+#: studio_management/apps/booking/response.py:9
+msgid "reservation_reservation_canceled_successfully"
+msgstr ""
+
+#: studio_management/apps/booking/response.py:13
+msgid "reservation_reservation_cannot_be_canceled_time_passed"
+msgstr ""
+
+#: studio_management/apps/booking/response.py:17
+msgid "reservation_reservation_not_found"
 msgstr ""
 
 #: studio_management/apps/core/validations.py:6

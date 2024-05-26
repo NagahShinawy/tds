@@ -1,8 +1,10 @@
-from rest_framework import viewsets, permissions
-from .models import Studio
-from .serializers import StudioSerializer
-from .permissions import IsOwnerOrReadOnly, IsStudioOwner, IsAdminOrStudioOwner
+from rest_framework import viewsets, permissions, generics, status
+from rest_framework.response import Response
 from studio_management.apps.profiles.choices import ProfileType
+from .models import Studio, Reservation
+from .serializers import StudioSerializer, ReservationSerializer
+from .permissions import IsOwnerOrReadOnly, IsStudioOwner
+from .response import ReservationCanceledSuccessfully, ReservationCanNotCanceled, ReservationNotFound
 
 
 class StudioViewSet(viewsets.ModelViewSet):
@@ -31,3 +33,44 @@ class StudioViewSet(viewsets.ModelViewSet):
         if user_profile.user_type == ProfileType.STUDIO_OWNER:
             return Studio.objects.filter(owner=user_profile)
         return Studio.objects.all()
+
+
+class ReservationListView(generics.ListAPIView):
+    serializer_class = ReservationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        user = self.request.user
+        profile = user.profile
+        if user.is_staff:
+            return Reservation.objects.all()
+        if profile.user_type == ProfileType.CUSTOMER:
+            return Reservation.objects.filter(customer=profile)
+
+        if profile.user_type == ProfileType.STUDIO_OWNER:
+            return Reservation.objects.filter(studio__owner=profile)
+
+        return Reservation.objects.none()
+
+
+class CustomerReservationCancellationView(generics.UpdateAPIView):
+    serializer_class = ReservationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Reservation.objects.filter(customer=user.profile)
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_queryset().filter(pk=kwargs.get('pk')).first()
+        if instance:
+            if instance.can_be_canceled():
+                instance.cancel()
+                return Response({"detail": ReservationCanceledSuccessfully.MESSAGE}, status=status.HTTP_200_OK)
+            else:
+                return Response({"detail": ReservationCanNotCanceled.MESSAGE}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"detail":ReservationNotFound.MESSAGE}, status=status.HTTP_404_NOT_FOUND)
