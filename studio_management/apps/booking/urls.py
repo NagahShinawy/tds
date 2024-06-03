@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import StudioViewSet, ReservationListView
+from .views import StudioViewSet, ReservationListView, CustomerReservationCancellationView
 
 
 router = DefaultRouter()
